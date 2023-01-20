@@ -1,6 +1,8 @@
 package com.globaltek.springboot.backend.apirest.models.entity;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class FacturaEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	private static final int IVA = 19;
+	private static final int IMPUESTO = 19;
 	private static final int CIEN = 100; 
 
 	@Id
@@ -32,7 +34,7 @@ public class FacturaEntity implements Serializable{
 	
 	@Column(nullable=false)
 	@Size(min=4, max=21)
-	private String numeroFactura; 
+	private Integer numeroFactura; 
 	
 	@Column(name="fecha")
 	@Temporal(TemporalType.DATE)
@@ -41,12 +43,15 @@ public class FacturaEntity implements Serializable{
 	@Column(name="tipo_de_pago", nullable=false)
 	@Size(min=4, max=21)
 	private String tipoDePago;
+	
+	@Column(name="documento_cliente", nullable=false)
+	private Long documentoCliente;
 
 	@Column(name="nombre_cliente", nullable=false)
 	private String nombreCliente;
 	
 	@Column(nullable=false)
-	private Integer subtotal;
+	private Long subtotal;
 	
 	@Column(nullable=false)
 	private Integer descuento;
@@ -55,26 +60,36 @@ public class FacturaEntity implements Serializable{
 	private Integer iva;
 	
 	@Column(name="total_descuento", nullable=false)
-	private Integer totalDescuento;
+	private Double totalDescuento;
 	
 	@Column(name="total_impuesto", nullable=false)
 	private Integer totalImpuesto;
 	
 	@Column(nullable=false)
-	private Integer total;
+	private Double total;
 	
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "exam"})
     @ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="exam_id")
-	private DetalleEntity exam;
+	private List<DetalleEntity> listDetalle;
 	
-	private String photo;
+	public FacturaEntity() {
+		this.listDetalle = new ArrayList<>();
+	}
 
-	public String getNumeroFactura() {
+	public Long getDocumentoCliente() {
+		return documentoCliente;
+	}
+
+	public void setDocumentoCliente(Long documentoCliente) {
+		this.documentoCliente = documentoCliente;
+	}
+
+	public Integer getNumeroFactura() {
 		return numeroFactura;
 	}
 
-	public void setNumeroFactura(String numeroFactura) {
+	public void setNumeroFactura(Integer numeroFactura) {
 		this.numeroFactura = numeroFactura;
 	}
 
@@ -102,11 +117,11 @@ public class FacturaEntity implements Serializable{
 		this.nombreCliente = nombreCliente;
 	}
 
-	public Integer getSubtotal() {
+	public Long getSubtotal() {
 		return subtotal;
 	}
 
-	public void setSubtotal(Integer subtotal) {
+	public void setSubtotal(Long subtotal) {
 		this.subtotal = subtotal;
 	}
 
@@ -123,48 +138,31 @@ public class FacturaEntity implements Serializable{
 	}
 
 	public void setIva() {
-		this.iva = IVA;
+		this.iva = IMPUESTO;
 	}
 
-	public Integer getTotalDescuento() {
+	public Double getTotalDescuento() {
 		return totalDescuento;
 	}
 
-	public void setTotalDescuento(Integer totalDescuento) {
-		this.totalDescuento = totalDescuento;
+	public void calcularTotalDescuento() {
+		this.totalDescuento = Double.valueOf( (this.subtotal * this.descuento) / CIEN);
 	}
 
 	public Integer getTotalImpuesto() {
 		return totalImpuesto;
 	}
 
-	public void calcularTotalImpuesto(int total) {
-		this.totalImpuesto = total * IVA / CIEN;
+	public void calcularTotalImpuesto() {
+		this.totalImpuesto = (int) (this.subtotal * IMPUESTO / CIEN);
 	}
 
-	public Integer getTotal() {
+	public Double getTotal() {
 		return total;
 	}
 
-	public void setTotal(Integer total) {
-		this.total = total;
+	public void setTotal() {
+		this.total = Double.valueOf((this.subtotal + this.totalImpuesto) - this.descuento) ;
 	}
 
-	public DetalleEntity getExam() {
-		return exam;
-	}
-
-	public void setExam(DetalleEntity exam) {
-		this.exam = exam;
-	}
-
-	public String getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
-	
-	//getter and setter
 }
