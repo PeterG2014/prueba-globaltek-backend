@@ -52,10 +52,6 @@ public class DetalleEntity implements Serializable {
 	
 	//getter and setter
 
-	
-	
-	
-	
 	public Long getId() {
 		return id;
 	}
