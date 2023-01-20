@@ -1,22 +1,23 @@
 --INSERT TABLE FACTURAS
-INSERT INTO facturas (numero_factura, fecha, tipo_de_pago, documento_cliente, nombre_cliente, subtotal, descuento, iva, total_descuento, total_impuesto, total) VALUES (1001, '09/12/2018', 'Contado', 80225444, 'Juan Perez', 100000, 0, 19, 0, 19000, 119000);
-INSERT INTO facturas (numero_factura, fecha, tipo_de_pago, documento_cliente, nombre_cliente, subtotal, descuento, iva, total_descuento, total_impuesto, total) VALUES (1002, '10/12/2018', 'Credito', 80225777, 'Pedro Hernandez', 200000, 10, 19, 20000, 34200, 214200);
-INSERT INTO facturas (numero_factura, fecha, tipo_de_pago, documento_cliente, nombre_cliente, subtotal, descuento, iva, total_descuento, total_impuesto, total) VALUES (1003, '11/12/2018', 'Contado', 80225666, 'Mario Duarte', 300000, 5, 19, 15000, 54150, 339150);
-
-
---INSERT TABLE DETALLE
-INSERT INTO detalles (id_factura, id_producto, cantidad, precio_unitario) VALUES (1, 1, 1, 50000);
-INSERT INTO detalles (id_factura, id_producto, cantidad, precio_unitario) VALUES (1, 2, 2, 25000);
-INSERT INTO detalles (id_factura, id_producto, cantidad, precio_unitario) VALUES (2, 3, 5, 20000);
-INSERT INTO detalles (id_factura, id_producto, cantidad, precio_unitario) VALUES (2, 4, 4, 25000);
-INSERT INTO detalles (id_factura, id_producto, cantidad, precio_unitario) VALUES (3, 5, 1, 100000);
-INSERT INTO detalles (id_factura, id_producto, cantidad, precio_unitario) VALUES (4, 6, 1, 200000);
+INSERT INTO factura (numero_factura, fecha, tipo_de_pago, documento_cliente, nombre_cliente, subtotal, descuento, iva, total_descuento, total_impuesto, total) VALUES (1001, '2018-09-12', 'Contado', 80225444, 'Juan Perez', 100000, 0, 19, 0.00, 19000.00, 119000.00);
+INSERT INTO factura (numero_factura, fecha, tipo_de_pago, documento_cliente, nombre_cliente, subtotal, descuento, iva, total_descuento, total_impuesto, total) VALUES (1002, '2018-10-12', 'Credito', 80225777, 'Pedro Hernandez', 200000, 10, 19, 20000.00, 34200.00, 214200.00);
+INSERT INTO factura (numero_factura, fecha, tipo_de_pago, documento_cliente, nombre_cliente, subtotal, descuento, iva, total_descuento, total_impuesto, total) VALUES (1003, '2018-11-12', 'Contado', 80225666, 'Mario Duarte', 300000, 5, 19, 15000.00, 54150.00, 339150.00);
 
 --
 --INSERT TABLE PRODUCTOS
-INSERT INTO productos (producto) VALUES ('camisa');
-INSERT INTO productos (producto) VALUES ('Pantalon');
-INSERT INTO productos (producto) VALUES ('Zapatos');
-INSERT INTO productos (producto) VALUES ('Tenis');
-INSERT INTO productos (producto) VALUES ('Falda');
-INSERT INTO productos (producto) VALUES ('Blusa');
+INSERT INTO producto (producto) VALUES ('camisa');
+INSERT INTO producto (producto) VALUES ('Pantalon');
+INSERT INTO producto (producto) VALUES ('Zapatos');
+INSERT INTO producto (producto) VALUES ('Tenis');
+INSERT INTO producto (producto) VALUES ('Falda');
+INSERT INTO producto (producto) VALUES ('Blusa');
+
+
+--INSERT TABLE DETALLE
+INSERT INTO detalle (id_factura, id_producto, cantidad, precio_unitario) VALUES (1, 1, 1, 50000);
+INSERT INTO detalle (id_factura, id_producto, cantidad, precio_unitario) VALUES (1, 2, 2, 25000);
+INSERT INTO detalle (id_factura, id_producto, cantidad, precio_unitario) VALUES (2, 3, 5, 20000);
+INSERT INTO detalle (id_factura, id_producto, cantidad, precio_unitario) VALUES (2, 4, 4, 25000);
+INSERT INTO detalle (id_factura, id_producto, cantidad, precio_unitario) VALUES (3, 5, 1, 100000);
+INSERT INTO detalle (id_factura, id_producto, cantidad, precio_unitario) VALUES (3, 6, 1, 200000);
+

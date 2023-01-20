@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
-@Table(name="facturas")
+@Table(name="factura")
 public class FacturaEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -32,11 +32,11 @@ public class FacturaEntity implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private Long id;
 	
-	@Column(nullable=false)
+	@Column(nullable=false, name="numero_factura")
 	@Size(min=4, max=21)
 	private Integer numeroFactura; 
 	
-	@Column(name="fecha")
+	
 	@Temporal(TemporalType.DATE)
 	private Date fecha;
 	
@@ -68,9 +68,8 @@ public class FacturaEntity implements Serializable{
 	@Column(nullable=false)
 	private Double total;
 	
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "exam"})
-    @ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="exam_id")
+	@JsonIgnoreProperties({"detalle", "hibernateLazyInitializer", "handler",})
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="factura", cascade=CascadeType.ALL)
 	private List<DetalleEntity> listDetalle;
 	
 	public FacturaEntity() {
