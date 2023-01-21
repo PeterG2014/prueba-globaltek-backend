@@ -1,4 +1,4 @@
-Para probar este desarrollo deben ejecutar en postman los siguientes empoit:
+Para probar este desarrollo deben ejecutar en postman los siguientes endpoint:
 DELETE http://localhost:9000/api/factura/{ID}
 UPDATE http://localhost:9000/api/factura/{ID}
 CREATE http://localhost:9000/api/create-factura
