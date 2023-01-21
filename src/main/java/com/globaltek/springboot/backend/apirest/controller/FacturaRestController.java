@@ -139,13 +139,13 @@ public class FacturaRestController {
 	}
 	 
 
-	@DeleteMapping("/student/{id}")
+	@DeleteMapping("/factura/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		
 		Map<String, Object> response = new HashMap<>();
-		FacturaEntity student = this.facturaService.findById(id);
+		FacturaEntity factura = this.facturaService.findById(id);
 		try{
-			if(Objects.nonNull(student)) this.facturaService.delete(id);
+			if(Objects.nonNull(factura)) this.facturaService.delete(id);
 		}catch(DataAccessException e){
 			response.put(EnumConstantsApi.ST_MESSAGE_JSON.getValue(), "Error al eliminar al estudiante : en base de datos");
 			response.put(EnumConstantsApi.ST_ERROR_JSON.getValue(), e.getMessage());
