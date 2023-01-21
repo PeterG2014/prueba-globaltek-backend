@@ -77,9 +77,10 @@ public class FacturaRestController {
 					.map(error -> "El campo '"+ error.getField() +"' " + error.getDefaultMessage()).collect(Collectors.toList());
 			
 			response.put(EnumConstantsApi.ST_ERROR_JSON.getValue(), errors);
+			log.info("mostrando la informacion de los error al crear factura");
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
-		
+		log.info("informacion de factura {}", factura);
 		try {
 			facturaNew = this.facturaService.save(factura);
 		}catch(DataAccessException e) {
@@ -89,14 +90,14 @@ public class FacturaRestController {
 		}
 		
 		response.put(EnumConstantsApi.ST_MESSAGE_JSON.getValue(), "Cliente creado con exito");
-		response.put(EnumConstantsApi.ST_STUDENT_JSON.getValue(), facturaNew);
+		response.put(EnumConstantsApi.ST_FACTURAS_JSON.getValue(), facturaNew);
 		
 		return new ResponseEntity<>( response, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/factura/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody FacturaEntity factura,BindingResult result,  @PathVariable Long id) {
-		System.out.println(factura);
+		log.info("informacion de factura {}", factura);
 		FacturaEntity facturaNow = facturaService.findById(id);
 		FacturaEntity facturaUpdate = null;
 		Map<String, Object> response = new HashMap<>();
@@ -110,7 +111,7 @@ public class FacturaRestController {
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 		
-		if (facturaNow == null) {
+		if (Objects.isNull(facturaNow)) {
 			response.put(EnumConstantsApi.ST_MESSAGE_JSON.getValue(), "Error no se pudo editar con ID: ".concat(id.toString()));
 			return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 		}
@@ -130,7 +131,7 @@ public class FacturaRestController {
 		}
 		
 		response.put(EnumConstantsApi.ST_MESSAGE_JSON.getValue(), "Cliente actualizado con exito");
-		response.put(EnumConstantsApi.ST_STUDENT_JSON.getValue(), facturaUpdate);
+		response.put(EnumConstantsApi.ST_FACTURAS_JSON.getValue(), facturaUpdate);
 	
 		
 		return new ResponseEntity<>( response, HttpStatus.CREATED); 

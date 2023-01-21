@@ -12,4 +12,5 @@ public interface FacturaDaoInterface extends CrudRepository<FacturaEntity, Long>
 	@Query("from FacturaEntity")
 	public List<FacturaEntity> findAllFactura();
 	
+	
 }

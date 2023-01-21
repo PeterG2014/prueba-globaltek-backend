@@ -33,7 +33,6 @@ public class FacturaEntity implements Serializable{
 	private Long id;
 	
 	@Column(nullable=false, name="numero_factura")
-	@Size(min=4, max=21)
 	private Long numeroFactura; 
 	
 	
