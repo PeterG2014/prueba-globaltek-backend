@@ -34,7 +34,7 @@ public class FacturaEntity implements Serializable{
 	
 	@Column(nullable=false, name="numero_factura")
 	@Size(min=4, max=21)
-	private Integer numeroFactura; 
+	private Long numeroFactura; 
 	
 	
 	@Temporal(TemporalType.DATE)
@@ -84,11 +84,11 @@ public class FacturaEntity implements Serializable{
 		this.documentoCliente = documentoCliente;
 	}
 
-	public Integer getNumeroFactura() {
+	public Long getNumeroFactura() {
 		return numeroFactura;
 	}
 
-	public void setNumeroFactura(Integer numeroFactura) {
+	public void setNumeroFactura(Long numeroFactura) {
 		this.numeroFactura = numeroFactura;
 	}
 
